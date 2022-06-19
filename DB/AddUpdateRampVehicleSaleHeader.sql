@@ -1,11 +1,11 @@
-USE [ilube]
+IF  EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.AddUpdateRampVehicleSaleHeader'))
+drop procedure AddUpdateRampVehicleSaleHeader
 GO
-/****** Object:  StoredProcedure [dbo].[GetRampVehicleSaleHeader]    Script Date: 11/06/2022 3:51:01 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-Alter procedure [dbo].[AddUpdateRampVehicleSaleHeader]
+Create procedure [dbo].[AddUpdateRampVehicleSaleHeader]
 	@BranchId int,
 	@RampNo int,
 	@VehicleNo varchar(100), 

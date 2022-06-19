@@ -1,6 +1,6 @@
-USE [ilube]
+IF  EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.DeleteRampVehicleSale'))
+drop procedure DeleteRampVehicleSale
 GO
-/****** Object:  StoredProcedure [dbo].[Account_Head_insert]    Script Date: 09/06/2022 10:40:44 pm ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

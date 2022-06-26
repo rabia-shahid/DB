@@ -1,4 +1,11 @@
-CREATE FUNCTION dbo.SimpleSplitFunction
+IF  EXISTS (SELECT * FROM sys.objects WHERE   OBJECT_ID = OBJECT_ID('dbo.Split'))
+drop function Split
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE FUNCTION dbo.Split
 (
   @List      nvarchar(max),
   @Delimiter nchar(1)

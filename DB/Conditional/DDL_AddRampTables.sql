@@ -1,13 +1,15 @@
-drop table RampSaleDetail
-drop table RampSaleHeader
-drop table Ramp
 
-CREATE TABLE Ramp (
-    RampNo int IDENTITY(1,1) PRIMARY KEY,
-	BranchId int
-);
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Ramp')
+Begin
+	CREATE TABLE Ramp (
+		RampNo int IDENTITY(1,1) PRIMARY KEY,
+		BranchId int
+	);
+END
 
-CREATE TABLE RampSaleHeader (
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'RampSaleHeader')
+Begin
+	CREATE TABLE RampSaleHeader (
     SaleHeaderId int IDENTITY(1,1) PRIMARY KEY,
 	BranchId int,
 	RampNo int,
@@ -28,11 +30,15 @@ CREATE TABLE RampSaleHeader (
 	BalanceAmount numeric(8,2),
 	CreateDate datetime
 );
+END
 
-CREATE TABLE RampSaleDetail (
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'RampSaleDetail')
+Begin
+	CREATE TABLE RampSaleDetail (
     SaleDetailId int IDENTITY(1,1) PRIMARY KEY,
 	SaleHeaderId int FOREIGN KEY REFERENCES RampSaleHeader(SaleHeaderId),
 	BarCode varchar(100),
 	ProductId int,
 	SaleQuantity numeric(8,2)
 );
+End

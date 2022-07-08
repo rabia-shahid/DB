@@ -12,7 +12,7 @@ AS
 
 Begin
 
-	select OP.id as ProductId,RSD.saleQuantity as saleQuantity,op.code,op.name, op.Qty ,rsctn,packing,apigrade
+	select OP.id as ProductId,RSD.saleQuantity as saleQuantity,op.code,op.name, op.Qty ,rsctn,packing,apigrade,OP.isThirdScheduleOrder
 	from RampSaleDetail RSD
 	inner join OilProducts OP on RSD.BarCode=OP.code
 	where SaleHeaderId=@SaleHeaderId

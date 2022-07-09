@@ -21,8 +21,16 @@ Begin
 	SELECT  ROW_NUMBER() OVER (ORDER BY value) rowNo,* into #tempProductIds FROM string_split(@ProductIds, ',')
 	SELECT  ROW_NUMBER() OVER (ORDER BY value) rowNo,* into #tempProductQuantities FROM string_split(@ProductSaleQuantities, ',')
 
-	declare @saleHederId int
+	declare @saleHederId int=0
 	select @saleHederId=saleheaderid from RampSaleHeader where BranchId=@BranchId and RampNo=@RampNo;
+
+	if (@saleHederId=0) -- if header level info is not added
+	Begin
+			insert into RampSaleHeader(branchId, RampNo)
+			values (@BranchId, @RampNo)
+
+			select @saleHederId=saleheaderid from RampSaleHeader where BranchId=@BranchId and RampNo=@RampNo;
+	End
 	
 	delete from RampSaleDetail where SaleHeaderId = @saleHederId 
 	

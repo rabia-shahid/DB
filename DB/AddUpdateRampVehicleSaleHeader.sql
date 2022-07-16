@@ -17,7 +17,9 @@ Create procedure [dbo].[AddUpdateRampVehicleSaleHeader]
 	@NextDate varchar(30), 
 	@Worker varchar(100), 
 	@CustomerName varchar(100), 
-	@CustomerPhoneNo varchar(100)
+	@CustomerPhoneNo varchar(100),
+	@DiscountAmount varchar(100)='',
+	@ReceivedAmount varchar(100)=''
 
 AS
 
@@ -25,8 +27,8 @@ Begin
 
 	if Not Exists (Select 1 from RampSaleHeader where RampNo = @RampNo and BranchId=@BranchId)
 	Begin
-		Insert into RampSaleHeader (BranchId, RampNo, VehicleNo, VehicleName, OilMilage, CurrentMilage, DueMilage, AverageMilage, NextDate, Worker, CustomerName, CustomerPhoneNo)
-		values (@BranchId, @RampNo, @VehicleNo, @VehicleName, @OilMilage, @CurrentMilage,@DueMilage, @AverageMilage, @NextDate, @Worker, @CustomerName, @CustomerPhoneNo)
+		Insert into RampSaleHeader (BranchId, RampNo, VehicleNo, VehicleName, OilMilage, CurrentMilage, DueMilage, AverageMilage, NextDate, Worker, CustomerName, CustomerPhoneNo, DiscountAmount, ReceivedAmount)
+		values (@BranchId, @RampNo, @VehicleNo, @VehicleName, @OilMilage, @CurrentMilage,@DueMilage, @AverageMilage, @NextDate, @Worker, @CustomerName, @CustomerPhoneNo,@DiscountAmount, @ReceivedAmount)
 	End
 	else
 	Begin
@@ -40,7 +42,9 @@ Begin
 		NextDate=@NextDate, 
 		Worker=@Worker, 
 		CustomerName=@CustomerName, 
-		CustomerPhoneNo=@CustomerPhoneNo
+		CustomerPhoneNo=@CustomerPhoneNo,
+		DiscountAmount=@DiscountAmount,
+		ReceivedAmount=@ReceivedAmount
 		where RampNo = @RampNo
 		and BranchId=@BranchId
 	End

@@ -7,6 +7,9 @@ Begin
 	);
 END
 
+drop table RampSaleDetail
+drop table RampSaleHeader
+
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'RampSaleHeader')
 Begin
 	CREATE TABLE RampSaleHeader (
@@ -24,10 +27,10 @@ Begin
 	CustomerName varchar(100),
 	CustomerPhoneNo varchar(100),
 	TotalAmount numeric(8,2),
-	DiscountAmount numeric(8,2),
-	NetAmount numeric(8,2),
-	ReceivedAmount numeric(8,2),
-	BalanceAmount numeric(8,2),
+	DiscountAmount varchar(20),
+	NetAmount varchar(20),
+	ReceivedAmount varchar(20),
+	BalanceAmount varchar(20),
 	CreateDate datetime
 );
 END

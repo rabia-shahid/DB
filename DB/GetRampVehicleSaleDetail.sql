@@ -12,9 +12,13 @@ AS
 
 Begin
 
+	declare @branchId int
+	select @branchId= branchId from RampSaleHeader where SaleHeaderId=@SaleHeaderId
+
 	select OP.id as ProductId,RSD.saleQuantity as saleQuantity,op.code,op.name, op.Qty, rsltr,rsctn,packing,apigrade,OP.isThirdScheduleOrder
 	from RampSaleDetail RSD
-	inner join OilProducts OP on RSD.BarCode=OP.code
+	inner join OilProducts OP on RSD.BarCode=OP.code and branchId=@branchId
 	where SaleHeaderId=@SaleHeaderId
+	and OP.branchId=@branchId
 END
 

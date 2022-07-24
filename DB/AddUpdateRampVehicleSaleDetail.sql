@@ -17,9 +17,9 @@ AS
 
 Begin
 
-	SELECT  ROW_NUMBER() OVER (ORDER BY value) rowNo,* into #tempBarCodes FROM string_split(@Barcodes, ',')
-	SELECT  ROW_NUMBER() OVER (ORDER BY value) rowNo,* into #tempProductIds FROM string_split(@ProductIds, ',')
-	SELECT  ROW_NUMBER() OVER (ORDER BY value) rowNo,* into #tempProductQuantities FROM string_split(@ProductSaleQuantities, ',')
+	SELECT  ROW_NUMBER() OVER (ORDER BY (select 0)) rowNo,* into #tempBarCodes FROM string_split(@Barcodes, ',')
+	SELECT  ROW_NUMBER() OVER (ORDER BY (select 0)) rowNo,* into #tempProductIds FROM string_split(@ProductIds, ',')
+	SELECT  ROW_NUMBER() OVER (ORDER BY (select 0)) rowNo,* into #tempProductQuantities FROM string_split(@ProductSaleQuantities, ',')
 
 	declare @saleHederId int=0
 	select @saleHederId=saleheaderid from RampSaleHeader where BranchId=@BranchId and RampNo=@RampNo;

@@ -12,10 +12,12 @@ GO
 -- ==========================================================================================
 
 CREATE procedure [dbo].[Barcode_SelectAll]
+@branchid int = 0
+
 As
 Begin
 		delete from barcodes
-		insert into barcodes(barcode,itemname,articleno,qty) Select code,name,rsltr,qty	From OilProducts;
+		insert into barcodes(barcode,itemname,articleno,qty, branchId) Select code,name,rsltr,qty, branchId	From OilProducts;
 		WITH TempEmp (barcode,duplicateRecCount)
 			AS
 			(
@@ -29,7 +31,7 @@ Begin
 			 --if ( @Column = 'All' and @value = 'All') 
 				--begin
 
-					select ROW_NUMBER() OVER (ORDER BY barcode) as number, * from barcodes where LEN(barcode) <=6 
+					select ROW_NUMBER() OVER (ORDER BY barcode) as number, * from barcodes where LEN(barcode) <=6 AND ISNULL(branchId, 0) = @branchid
 			--	end
 			--else if ( @Column = 'Product Name' ) 
 			--	begin
